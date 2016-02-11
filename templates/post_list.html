@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content%}
+</br>
+Welcome {{ request.user }}</br>
+
+{% for post in post_list %}
+<div>
+Title: {{ post.title }}
+Content: {{ post.content }}
+</div>
+{% endfor %}
+
+
+
+
+<form method="GET", action="{% url 'logout' %}">
+	<input type="submit" value="Logout">
+</form>
+{% endblock %}

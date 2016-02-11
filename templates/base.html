@@ -1,0 +1,15 @@
+<!-- DOCTYPE html-->
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>
+		{% block head_title %}Base page {% endblock head_title %}
+		</title>
+	</head>
+	<body>
+	<a href="{% url 'create' %}">New post</a>
+	{% block content%}
+	Welcome to Your Customize Blog 
+	{% endblock content %}
+	</body>
+</html>

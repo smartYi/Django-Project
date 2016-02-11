@@ -1,0 +1,42 @@
+<!-- DOCTYPE html-->
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="../static/css/login.css">
+		<title>
+		Post -- Login page
+		</title>
+	</head>
+	<body>
+	<div class="login">
+	{% if form.errors %}
+	<p style="color:red">
+	Incorrect user name and password.
+	</p>
+	{% endif %}
+
+	<p class="info">
+	Log in to see your posts:
+	</p>
+
+	<form method="POST" action="{% url 'django.contrib.auth.views.login' %}"> {% csrf_token %}
+	<table class="table">
+	<tr class="username">
+		<td>{{ form.username.label_tag }}</td>
+		<td>{{ form.username }}</td>
+	</tr>
+	<tr class="pwd">
+		<td>{{ form.password.label_tag }}</td>
+		<td>{{ form.password }}</td>
+	</tr>
+	</table>
+
+	<div class="bottom">
+	<input type="submit" value="Login" />
+	<a href="{% url 'register' %}" class="link">Register</a>
+	<input type="hidden" name="text" value="{{ next }}" />
+	</div>
+	</form>
+	</div>
+	</body>
+</html>

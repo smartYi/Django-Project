@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'blog',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -52,10 +53,18 @@ MIDDLEWARE_CLASSES = [
 
 ROOT_URLCONF = 'mysite.urls'
 
+
+#Here is login url
+LOGIN_URL = '/blog/login'
+
+#When user succesfully log in ,redirect to this url.
+LOGIN_REDIRECT_URL = '/blog/'
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], #If not specify, it will look for templates within this app
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -65,7 +74,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
         },
-    },
+    }, 
 ]
 
 WSGI_APPLICATION = 'mysite.wsgi.application'

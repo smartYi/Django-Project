@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block head_title %}
+Register Page
+{% endblock head_title %}
+
+{% block content %}
+<div class="register">
+{% for error in form.non_field_errors %}
+<p style="color:red">
+{{ error }}
+</p>
+{% endfor %}
+
+<p class="info">
+Register to post your blog:	
+</p>
+<form method='POST' action="{% url 'register' %}">
+{% for field in form.visible_fields %}
+<table class="table">
+<tr>
+<td>{{field.label_tag}}</td>
+<td>{{field}}</td>
+<td style="color:red">{{field.errors}}</td>
+</tr>
+{% endfor %}
+</table>
+{% for field in form.hidden_fields %}
+{{field}}
+{% endfor %}
+{% csrf_token %}
+<input type="submit" value="Register" class="submit" />
+</form>
+{% endblock content %}
+
+
