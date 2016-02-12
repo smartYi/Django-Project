@@ -21,9 +21,9 @@ from .views import *
 
 urlpatterns = [
     url(r'^create/$', post_create, name="create"),
-    url(r'^update/$', post_update, name="update"),
-    url(r'^delete/$', post_delete, name="delete"),
-    url(r'^detail/$', post_detail, name="detail"),
+    url(r'^update/(?P<id>\d+)$', post_update, name="update"),
+    url(r'^delete/(?P<id>\d+)$', post_delete, name="delete"),
+    url(r'^detail/(?P<id>\d+)$', post_detail, name="detail"),
     url(r'^login$', auth_views.login, {'template_name':'login.html'}, name='login'),
     url(r'^logout$', auth_views.logout_then_login, name='logout'),
     url(r'^$', home, name="home"),

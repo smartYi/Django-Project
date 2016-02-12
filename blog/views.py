@@ -14,22 +14,30 @@ from .models import Post
 @login_required
 def home(request):
 	context = {}
-	if request.method == 'POST':
-		new_post = PostForm(request.POST)
-		if new_post.is_valid():
-			#print new_post.cleaned_data['title']
-			#Need to add user info to current post, otherwise will throw out error. But why?
-			instance = new_post.save(commit=False)
-			instance.user = request.user
-			instance.save()
-
 	post_list = Post.objects.filter(user=request.user)
 	context['post_list'] = post_list
 
 	return render(request, 'post_list.html', context)
 
 
-
+@login_required
+@transaction.atomic
+def post_create(request):
+	context = {}
+	if request.method == 'POST':
+		new_post = PostForm(request.POST)
+		if not new_post.is_valid():
+			return render(request, 'post_form.html', {'form':new_post})
+			#print new_post.cleaned_data['title']
+			#Need to add user info to current post, otherwise will throw out error. But why?
+		else:
+			instance = new_post.save(commit=False)
+			instance.user = request.user
+			instance.save()
+		return redirect('/blog/')
+	else:
+		context['form'] = PostForm()
+		return render(request, 'post_form.html', context)
 
 @transaction.atomic
 def register(request):
@@ -60,33 +68,34 @@ def register(request):
 	return redirect('/blog/')
 
 
+@login_required
+def post_delete(request, id):
+	post = Post.objects.filter(id=id)
+	post.delete()
+	return redirect('/blog/')
+
 
 
 @login_required
-def post_create(request):
+def post_update(request, id):
 	context = {}
-	context['form'] = PostForm()
+	instance = Post.objects.get(id=id)
+	form = PostForm(instance=instance)
+	instance.delete()
+	context['form'] = form
 	return render(request, 'post_form.html', context)
 
 
-def post_delete(request):
-
-	return HttpResponse("<h1>Hello World Delete</h1>")
-
-def post_update(request):
-
-	return HttpResponse("<h1>Hello World Update</h1>")
-
-
-def post_detail(request):
+@login_required
+def post_detail(request, id):
 	context = {}
+	instance = Post.objects.get(id=id)
+	name = User.get_full_name(request.user)
+	context['post'] = instance
+	context['name'] = name
+	return render(request, "post_detail.html", context)
 
-	
-	return render(request, "post_list.html", context)
-
-
+@login_required
 def post_list(request):
 	context = {}
-
-
 	return render(request, "post_list.html", context)

@@ -7,7 +7,10 @@
 		</title>
 	</head>
 	<body>
+	{% block link %}
 	<a href="{% url 'create' %}">New post</a>
+	<a href="{% url 'home' %}">Home Page</a>
+	{% endblock link%}
 	{% block content%}
 	Welcome to Your Customize Blog 
 	{% endblock content %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block head_title %}Detail page {% endblock head_title %}
+
+{% block content%}
+</br>
+<div class="author">
+Author:{{ name }}
+</div>
+<div class="date">
+	Last Updated: {{ post.update }}
+</div>
+<div class="title">
+Title:</br>
+{{ post.title }}
+</div>
+<div class="content">
+Content:</br>
+{{ post.content }}
+</div>
+{% endblock content %}

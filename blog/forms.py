@@ -14,10 +14,7 @@ class PostForm(forms.ModelForm):
 
 	def clean(self):
 		cleaned_data = super(PostForm, self).clean()
-
 		return cleaned_data
-
-
 
 
 class RegistrationForm(forms.Form):

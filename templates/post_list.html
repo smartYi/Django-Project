@@ -8,6 +8,9 @@ Welcome {{ request.user }}</br>
 <div>
 Title: {{ post.title }}
 Content: {{ post.content }}
+<a href="{% url 'detail' post.id %}">Read More</a>
+<a href="{% url 'update' post.id %}">Edit</a>
+<a href="{% url 'delete' post.id %}">Delete</a>
 </div>
 {% endfor %}
 
